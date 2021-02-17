@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-mongoose.connect("mongodb://172.31.0.2:27017/restorant", {
+mongoose.connect("mongodb://172.20.0.2:27017/restorant", {
   useNewUrlParser: true,
 });
 var db = mongoose.connection;
