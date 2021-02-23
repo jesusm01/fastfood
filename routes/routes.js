@@ -1,11 +1,21 @@
+
 import express from "express";
 import IndexController from "../controller/indexController.js";
 import UserController from "../controller/userController.js";
 import RolesController from "../controller/rolesContoller.js";
+import Mailer from "../templates/registerTemplate.js";
+
 var router = express.Router();
 var indexControler = new IndexController();
 var userController = new UserController();
 var rolesController = new RolesController();
+var mailer = new Mailer();
+
+/*
+    ROUTES FOR SENDMAIL
+
+*/
+router.get("/mail",mailer.sendMail);
 /* GET home page. */
 /**
  * Endpoints de los usuarios
