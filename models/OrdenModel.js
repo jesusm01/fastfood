@@ -34,4 +34,18 @@ class ordenModel{
             });
         });
     }
+    
+    //SERVICIO GET
+    getOrden(){
+        return new Promise((resolve,reject)=>{
+            this.mymodel.find({}, (err,docs)=>{
+                if (err) {
+                    console.log (err);
+                    resolve(err);
+                    return;
+                }
+                resolve(docs);
+            });
+        });
+    }
 }
