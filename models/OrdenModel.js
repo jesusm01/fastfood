@@ -48,4 +48,18 @@ class ordenModel{
             });
         });
     }
+
+    //SERVICIO UPDATE
+    updateModel(id, ordenUpdate){
+        return new Promise((resolve,reject)=>{
+            this.mymodel.update({ _id:id},{$set: ordenUpdate},(err,docs) => {
+                if(err){
+                    console.log(err);
+                    resolve(err);
+                    return;
+                }
+                resolve(docs);
+            });
+        });
+    }
 }
