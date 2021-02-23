@@ -20,7 +20,7 @@ class menuModel{
         };
         var newMenu = new this.mymodel(menu);
         return new Promise((resolve,reject)=>{
-            newMenu.save().then((err,docs)=>{
+            newMenu.save().then((docs)=>{
                 console.log("menu register successful");
                 resolve(docs);
             });

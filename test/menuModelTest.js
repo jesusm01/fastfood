@@ -9,7 +9,7 @@ var initTest = async() =>{
 
     /*menuModel.deleteMenu("6029498b3f8be800f2a470f7");*/
 
-    await menuModel.updateModel("60294a48c5075600fe05d3ca", {name:"Juan"});
+    /*await menuModel.updateModel("60294a48c5075600fe05d3ca", {name:"Juan"});*/
 
     console.log(await menuModel.getMenu());
 };

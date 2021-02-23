@@ -2,11 +2,22 @@ import express from "express";
 import IndexController from "../controller/indexController.js";
 import UserController from "../controller/userController.js";
 import RolesController from "../controller/rolesContoller.js";
+
 import MenuController from "../controller/menuController.js";
 var router = express.Router();
 var indexControler = new IndexController();
 var userController = new UserController();
 var rolesController = new RolesController();
+var menuController = new MenuController();
+
+router.post("/menu",menuController.createMenu);
+router.put("/menu/:id" ,menuController.updateMenu);
+
+
+
+
+
+
 /* GET home page. */
 /**
  * Endpoints de los usuarios
