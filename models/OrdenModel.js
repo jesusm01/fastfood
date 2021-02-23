@@ -62,4 +62,25 @@ class ordenModel{
             });
         });
     }
+    
+    //SERVICIO DELETE
+    deleteOrden(id) {
+        return new Promise((resolve, reject) => {
+            this.mymodel.remove({ _id: id }).then((err, docs) => {
+                if (err) {
+                    console.log(err);
+                    resolve(err);
+                    return;
+                }
+                resolve(docs);
+            });
+        });
+    }
+    getModel(){
+        return this.mymodel
+    }
+    getSchema() {
+        return this.UserSchema;
+    }
 }
+export default ordenModel;
