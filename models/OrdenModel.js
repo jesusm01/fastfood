@@ -15,4 +15,23 @@ class ordenModel{
         });
         this.mymodel = mongoose.model("orden",this.OrdenSchema);
     }
+   
+     //SERVICIO POST
+     createOrden(idmenu,idrestaurant,cantidad,idcliente, lugardeenvio, pagototal){
+        var orden = {
+            idmenu,
+            idrestaurant,
+            cantidad,
+            idcliente,
+            lugardeenvio,
+            pagototal
+        };
+        var newOrden = new this.mymodel(orden);
+        return new Promise((resolve,reject)=>{
+            newOrden.save().then((docs)=>{
+                console.log("Orden registrado");
+                resolve(docs);
+            });
+        });
+    }
 }
