@@ -1,12 +1,12 @@
 
-import ResModel from "../models/ResModel.js";
-class MenuController{
+import restModel from "../models/RestModel.js";
+class RestController{
     constructor(){}
     //services
     async createResto(request,response){
         var data = request.body;
-        var menu = new RestoModel();
-        var result = await menu.createResto(
+        var rest = new restModel();
+        var result = await rest.createRest( /*esto hace referencia a la class de RestModel*/
             data.NIT,
             data.owner,
             data.direction,
@@ -16,4 +16,4 @@ class MenuController{
         response.status(200).json(result);
     }
 }
-export default restoController;
+export default RestController;

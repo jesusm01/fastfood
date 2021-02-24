@@ -92,9 +92,10 @@ var initTest = async() =>{
 
     console.log(await resModel.getResto());
     
-     */
-    restmodel.deleteRest("6035f4156bdca20266099350");
+     
+    restmodel.deleteRest("6035f4156bdca20266099358");
 
     console.log(await restmodel.getRest())
+   */
 };
 initTest();

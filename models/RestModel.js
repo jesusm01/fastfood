@@ -10,6 +10,7 @@ class restModel{
             direction: String,
             phone: String,  
             date_register: Date,
+        
         });
         this.mymodel = mongoose.model("restos",this.restSchema);
     }
@@ -24,7 +25,7 @@ class restModel{
         };
         var newRest = new this.mymodel(Rest);
         return new Promise((resolve,reject)=>{
-            newRest.save().then((err,docs)=>{
+            newRest.save().then((docs)=>{
                 console.log("Rest register successful");
                 resolve(docs);
             });
