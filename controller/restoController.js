@@ -11,9 +11,6 @@ class MenuController{
             data.propietario,
             data.street,
             data.telephone,
-            data.log,
-            data.lat,
-            data.logo,
             data.date_register,
             data.fotolugar
         );

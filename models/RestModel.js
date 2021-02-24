@@ -1,45 +1,36 @@
 import mongoose from "../connection/connect.js";
-class resModel{
+
+class restModel{
     constructor(){
         this.Schema = mongoose.Schema;
-        this.resSchema = new this.Schema({
+        this.restSchema = new this.Schema({
             name: String,
             NIT: String,
-            propietario: String,
-            street: String,
-            telephone: String,
-            log: Float,
-            lat: Float,
-            logo: Image,
+            owner: String,
+            direction: String,
+            phone: String,  
             date_register: Date,
-            fotolugar: image
         });
-        this.mymodel = mongoose.model("menu",this.MenuSchema);
+        this.mymodel = mongoose.model("restos",this.restSchema);
     }
-
-    createResto(name,price,description,registerDate){
-        var restaurant = {
-            name: String,
-            NIT: String,
-            propietario: String,
-            street: String,
-            telephone: String,
-            log: Float,
-            lat: Float,
-            logo: Image,
-            date_register: Date,
-            fotolugar: image
+    createRest(name, NIT, owner, direction, phone, date_register){
+        var Rest = {
+            name,
+            NIT,
+            owner,
+            direction,
+            phone,
+            date_register
         };
-        var newResto = new this.mymodel(resto);
+        var newRest = new this.mymodel(Rest);
         return new Promise((resolve,reject)=>{
-            newResto.save().then((err,docs)=>{
-                console.log("menu register successful");
+            newRest.save().then((err,docs)=>{
+                console.log("Rest register successful");
                 resolve(docs);
             });
         });
     }
-
-    getResto(){
+    getRest(){
         return new Promise((resolve,reject)=>{
             this.mymodel.find({}, (err,docs)=>{
                 if (err) {
@@ -52,9 +43,9 @@ class resModel{
         });
     }
 
-    updateResto(id, restoUpdate){
+    updateRest(id, restUpdate){
         return new Promise((resolve,reject)=>{
-            this.mymodel.update({ _id:id},{$set: restoUpdate},(err,docs) => {
+            this.mymodel.update({ _id:id},{$set: restUpdate},(err,docs) => {
                 if(err){
                     console.log(err);
                     resolve(err);
@@ -62,11 +53,10 @@ class resModel{
                 }
                 resolve(docs);
             });
-        });
-       
+        });    
     }
 
-    deleteResto(id) {
+    deleteRest(id) {
         return new Promise((resolve, reject) => {
           this.mymodel.remove({ _id: id }).then((err, docs) => {
             if (err) {
@@ -83,4 +73,4 @@ class resModel{
         return this.mymodel
     }
 }
-export default ResModel;
+export default restModel;
