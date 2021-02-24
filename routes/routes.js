@@ -15,7 +15,8 @@ var mailer = new Mailer();
     ROUTES FOR SENDMAIL
 
 */
-router.get("/mail",mailer.sendMail);
+router.get("/mail", mailer.sendMail);
+
 /* GET home page. */
 /**
  * Endpoints de los usuarios
