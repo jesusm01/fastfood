@@ -8,11 +8,10 @@ class MenuController{
         var menu = new RestoModel();
         var result = await menu.createResto(
             data.NIT,
-            data.propietario,
-            data.street,
-            data.telephone,
+            data.owner,
+            data.direction,
+            data.phone,
             data.date_register,
-            data.fotolugar
         );
         response.status(200).json(result);
     }
