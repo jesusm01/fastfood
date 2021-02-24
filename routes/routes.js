@@ -31,5 +31,10 @@ router.get("/roles/:key", rolesController.getRol);
 router.put("/roles/:id", rolesController.updateRol);
 router.delete("/roles/:id", rolesController.deleteRol);
 
-router.post("/rest", restController.createResto);
+router.get("/rest", restController.getResto);
+router.post("/rest", restController.createResto); /**usa los metodos clases de RestController createResto */
+router.put("/rest/:id", restController.updateResto);
+router.delete("/rest/:id", restController.deleteResto);
+
+
 export default router;

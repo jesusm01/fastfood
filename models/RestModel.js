@@ -10,7 +10,6 @@ class restModel{
             direction: String,
             phone: String,  
             date_register: Date,
-        
         });
         this.mymodel = mongoose.model("restos",this.restSchema);
     }
