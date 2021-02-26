@@ -1,5 +1,7 @@
-import UserModel from "../models/userModel.js";
-var USER = new UserModel();
+//import UserModel from "../models/userModel.js";
+//var USER = new UserModel();
+import restModel from "../models/RestModel.js";
+var REST = new restModel(); 
 class IndexController {
   constructor() {}
   //services

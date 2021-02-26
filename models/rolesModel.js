@@ -1,5 +1,55 @@
 import mongoose from "../connection/connect.js";
 import modelenum from "../utils/enumModel.js";
+
+class RolesModel{
+  constructor(){
+     var Schema = mongoose.Schema;
+     this.rolesSchema = new Schema({
+       name: String,
+       description: String,
+
+     }); 
+     if (modelenum["roles"] == null) {
+      this.mymodel = mongoose.model("roles", this.rolesSchema);
+      modelenum["roles"] = this.mymodel;
+    } else {
+      this.mymodel = modelenum["roles"];
+    }
+  }
+  getModel(){   /*ESto sale de RestModel.js */
+    return this.mymodel
+   }
+   getSchema(){
+     return this.rolesSchema;
+   }
+}
+export default RolesModel;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
 class RolesModel {
   constructor() {
     var Schema = mongoose.Schema;
@@ -54,3 +104,4 @@ class RolesModel {
   }
 }
 export default RolesModel;
+*/
