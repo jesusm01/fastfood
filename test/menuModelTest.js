@@ -1,8 +1,8 @@
 import MenuModel from "../models/MenuModel.js";
 var initTest = async() =>{
     var menuModel = new MenuModel();
-    /*menuModel.createMenu("Test_name1",15,"Test_descrip1",new Date());
-    menuModel.createMenu("Test_name2",25,"Test_descrip2",new Date());
+    menuModel.createMenu("pizza hawaiana",15,"ingredientes",new Date(),'603697b863ce5c0106b9cbf9');
+    /*menuModel.createMenu("Test_name2",25,"Test_descrip2",new Date());
     menuModel.createMenu("Test_name3",35,"Test_descrip3",new Date());
     menuModel.createMenu("Test_name4",45,"Test_descrip4",new Date());
     */
@@ -11,6 +11,6 @@ var initTest = async() =>{
 
     /*await menuModel.updateModel("60294a48c5075600fe05d3ca", {name:"Juan"});*/
 
-    console.log(await menuModel.getMenu());
+    ///console.log(await menuModel.getMenu());
 };
 initTest();

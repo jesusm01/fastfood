@@ -1,74 +1,67 @@
 import mongoose from "../connection/connect.js";
+import modelenum from "../utils/enumModel.js";
+
 class menuModel{
     constructor(){
         this.Schema = mongoose.Schema;
         this.MenuSchema = new this.Schema({
-            name: String,
-            price: Number,
+            name: {
+                type : String
+            },
+            price: {
+                type : Number,
+                min : 0,
+            },
             description: String,
             registerDate:Date,
         });
-        this.mymodel = mongoose.model("menu",this.MenuSchema);
+        if (modelenum["menus"] == null) {
+            this.mymodel = mongoose.model("menus", this.MenuSchema);
+            modelenum["menus"] = this.mymodel;
+          } 
+        else {
+            this.mymodel = modelenum["menus"];
+          }
     }
 
-    createMenu(name,price,description,registerDate){
-        var menu = {
-            name,
-            price,
-            description,
-            registerDate
-        };
-        var newMenu = new this.mymodel(menu);
+    async createMenu(menudata){
+        var menu = new this.mymodel(menudata);
         return new Promise((resolve,reject)=>{
-            newMenu.save().then((docs)=>{
-                console.log("menu register successful");
-                resolve(docs);
-            });
-        });
-    }
-
-    getMenu(){
-        return new Promise((resolve,reject)=>{
-            this.mymodel.find({}, (err,docs)=>{
-                if (err) {
-                    console.log (err);
-                    resolve(err);
-                    return;
+            menu.save().then((docs)=>{
+                if(docs){
+                    resolve(docs);
                 }
-                resolve(docs);
             });
         });
     }
-
-    updateModel(id, menuUpdate){
-        return new Promise((resolve,reject)=>{
-            this.mymodel.update({ _id:id},{$set: menuUpdate},(err,docs) => {
-                if(err){
-                    console.log(err);
-                    resolve(err);
-                    return;
-                }
-                resolve(docs);
-            });
-        });
-       
+    async deleteMenu(id){
+        const result = await this.mymodel.remove({_id:id});
+        return (docs);
+    }
+    async updateMenu(id,updateData){
+        const result = await this.mymodel.update({_id:id},{$set:updateData});
+        return desult;
     }
 
-    deleteMenu(id) {
-        return new Promise((resolve, reject) => {
-          this.mymodel.remove({ _id: id }).then((err, docs) => {
-            if (err) {
-              console.log(err);
-              resolve(err);
-              return;
-            }
-            resolve(docs);
-          });
-        });
-      }
+    async getMenu(key){
+        var filter = {};
+        if (key != null){
+            filter = key
+        }
+        const result = await this.mymodel.find(filter).sort(0).limit(10);
+        return result;
+    }
 
     getModel(){
         return this.mymodel
+    }
+
+    async checkNamedb(name){
+        var result = await this.mymodel.find({name:name});
+        if(result.length>0){
+            return true;
+        }
+        return false;
     }
 }
 export default menuModel;
