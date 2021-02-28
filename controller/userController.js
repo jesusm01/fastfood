@@ -7,12 +7,10 @@ class UserController {
   //services
   async createUser(request, response) {
     var data = request.body;
-    if (USER.checkEmaildb(data.email)) {
-      response
-        .status(200)
-        .json({ serverResponse: "El email ya esta registrado" });
+    /*if (USER.checkEmaildb(data.email)) {
+      response.status(200).json({ serverResponse: "El email ya esta registrado" });
       return;
-    }
+    }*/
     var result = await USER.createUser(
       data.name,
       data.lastname,

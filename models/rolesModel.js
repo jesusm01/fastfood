@@ -22,6 +22,36 @@ class RolesModel{
    getSchema(){
      return this.rolesSchema;
    }
+   createRol(roldata) {
+    var rol = new this.mymodel(roldata);
+    return new Promise((resolve, reject) => {
+      rol.save().then((docs) => {
+        if (docs) {
+          resolve(docs);
+        }
+      });
+    });
+  }
+  async deleteRol(id) {
+    const result = await this.mymodel.remove({ _id: id });
+    return result;
+  }
+  async updateRol(id, updatedata) {
+    const result = await this.mymodel.update({ _id: id }, { $set: updatedata });
+    return result;
+  }
+  async getRol(key) {
+    var filter = {};
+    if (key != null) {
+      filter = key;
+    }
+    const result = await this.mymodel.find(filter);
+    console.log("---------- MODEL -----------");
+    console.log(result);
+    console.log("---------- END MODEL -----------");
+
+    return result;
+  }
 }
 export default RolesModel;
 

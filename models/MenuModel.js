@@ -22,46 +22,67 @@ class menuModel{
         else {
             this.mymodel = modelenum["menus"];
           }
+        
     }
 
-    async createMenu(menudata){
-        var menu = new this.mymodel(menudata);
+    async createMenu(id, menudata){
+        this.restModel = modelenum["restaurant"];
         return new Promise((resolve,reject)=>{
-            menu.save().then((docs)=>{
-                if(docs){
-                    resolve(docs);
+            this.restModel.update({_id:id},{$push:{menu:menudata}},(err,docs)=>{
+                if(err){
+                    console.log(err);
+                    resolve(err);
+                    return;
                 }
+                resolve(docs);
             });
         });
     }
-    async deleteMenu(id){
-        const result = await this.mymodel.remove({_id:id});
-        return (docs);
-    }
-    async updateMenu(id,updateData){
-        const result = await this.mymodel.update({_id:id},{$set:updateData});
-        return desult;
-    }
-
-    async getMenu(key){
-        var filter = {};
-        if (key != null){
-            filter = key
-        }
-        const result = await this.mymodel.find(filter).sort(0).limit(10);
+    
+    async getMenu(id){
+        this.restModel = modelenum["restaurant"];
+        const result = this.restModel.find({_id:id},{menu:1});
         return result;
     }
 
-    getModel(){
-        return this.mymodel
+    async getMenuUnique(id){
+        this.restModel = modelenum["restaurant"];
+        const result = this.restModel.find({'menu._id': id},{'menu.$':1});
+        return result;
     }
 
-    async checkNamedb(name){
-        var result = await this.mymodel.find({name:name});
-        if(result.length>0){
-            return true;
-        }
-        return false;
+    async updateMenu(id,menuUpdate){
+        this.restModel = modelenum["restaurant"];
+        return new Promise((resolve,reject)=>{
+            this.restModel.updateOne(
+                {'menu._id':id},
+                {$set:{'menu.$':menuUpdate}},
+                (err,docs)=>{
+                    if(err){
+                        console.log(err);
+                        resolve(err);
+                        return;
+                    }
+                    resolve(docs);
+                });
+        });
+    }
+
+    async deleteMenu (id){
+        this.restModel = modelenum["restaurant"];
+        return new Promise((resolve,reject)=>{
+            this.restModel.updateOne(
+                {},
+                {$pull:{menu:{_id:id}}},
+                {multi:true}).then((err,docs)=>{
+                    if(err){
+                        console.log(err);
+                        resolve(err);
+                        return;
+                    }
+                    resolve(docs);
+                });
+        });
     }
 }
 export default menuModel;

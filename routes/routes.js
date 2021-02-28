@@ -13,6 +13,7 @@ var userController = new UserController();
 var rolesController = new RolesController();
 
 var restController = new RestController();
+var menuController = new MenuController();
 /* GET home page. */
 /**
  * Endpoints de los usuarios
@@ -35,10 +36,16 @@ router.get("/roles/:key", rolesController.getRol);
 router.put("/roles/:id", rolesController.updateRol);
 router.delete("/roles/:id", rolesController.deleteRol);
 
+
 router.get("/rest", restController.getResto);
 router.post("/rest", restController.createResto); /**usa los metodos clases de RestController createResto */
 router.put("/rest/:id", restController.updateResto);
 router.delete("/rest/:id", restController.deleteResto);
 
 
+router.put("/menu/:id",menuController.createMenu);
+router.get("/menu/:id",menuController.getMenu);
+router.get("/menu/unique/:id",menuController.getMenuUnique);
+router.put("/menu/update/:id",menuController.updateMenu);
+router.delete("/menu/:id",menuController.deleteMenu);
 export default router;

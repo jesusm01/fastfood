@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-mongoose.connect("mongodb://172.20.0.2:27017/restorant", {
+mongoose.connect("mongodb://172.20.0.2:27017/fastfood", {
   useNewUrlParser: true,
 });
 var db = mongoose.connection;

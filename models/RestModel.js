@@ -1,17 +1,15 @@
 import mongoose from "../connection/connect.js";
 import modelenum from "../utils/enumModel.js";
 import RolesModel from "./rolesModel.js";
+import MenuModel from "./MenuModel.js";
+
+var menuModel = new MenuModel();
 class restModel{
     constructor(){
         var roles = new RolesModel();
         this.Schema = mongoose.Schema;
         this.restSchema = new this.Schema({
-            /*name: String,
-            NIT: String,
-            owner: String,
-            direction: String,
-            phone: String,  
-            date_register: Date,*/
+
             name:{
                 type: String,
                 validate: {
@@ -25,7 +23,7 @@ class restModel{
                 type: String,
                 validate: {
                  validator: (value) => {
-                     return /^[0-9,$]*$/.test(value);
+                     return /[0-9]{12}/g.test(value);
                  },
                  message: (props) => 'This NIT ${props.value} is invalid', 
                  },               
@@ -58,17 +56,16 @@ class restModel{
                  message: (props) => 'This Number phone ${props.value} is invalid', 
                  },
             },
+            menu:[menuModel.MenuSchema],
             date_register: Date,
-
-            roles: [roles.getSchema()],
         });
-        if (modelenum["restos"] == null) {
-            this.mymodel = mongoose.model("restos", this.restSchema);
-            modelenum["restos"] = this.mymodel;
+        if (modelenum["restaurant"] == null) {
+            this.mymodel = mongoose.model("restaurant", this.restSchema);
+            modelenum["restaurant"] = this.mymodel;
           } else {
-            this.mymodel = modelenum["restos"];
+            this.mymodel = modelenum["restaurant"];
         }
-        /*this.mymodel = mongoose.model("restos",this.restSchema);*/
+        /*this.mymodel = mongoose.model("restaurant",this.restSchema);*/
     }
     createRest(name, NIT, owner, direction, phone, date_register){
         var Rest = {
