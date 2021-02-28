@@ -1,4 +1,5 @@
 import mongoose from "../connection/connect.js";
+import modelenum from "../utils/enumModel.js";
 class ordenModel{
     constructor(){
         this.Schema = mongoose.Schema;
