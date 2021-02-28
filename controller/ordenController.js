@@ -57,6 +57,5 @@ class OrdenController{
         var result = await USER.remove({_id: req.body.id})
         res.status(200).json({serverResponse:result}); 
     }
-
 }
 export default OrdenController; 
