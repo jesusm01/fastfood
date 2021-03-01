@@ -5,6 +5,8 @@ import cookieParser from "cookie-parser";
 import logger from "morgan";
 import mustacheExpress from "mustache-express";
 import indexRouter from "./routes/routes.js";
+import fileUpload from "express-fileupload";
+
 const __dirname = "./";
 var app = express();
 
@@ -13,6 +15,12 @@ var app = express();
 app.engine("html", mustacheExpress());
 app.set("view engine", "html");
 app.set("views", __dirname + "views");
+
+app.use(
+  fileUpload({
+    limits: {fileSize: 50*1024*1024},
+  })
+);
 
 
 app.use(logger("dev"));

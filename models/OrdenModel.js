@@ -4,30 +4,21 @@ class ordenModel{
     constructor(){
         this.Schema = mongoose.Schema;
         this.OrdenSchema = new this.Schema({
-            idmenu: String,
             idrestaurant: String,
-            cantidad: Number,
             idcliente: String,
-            lugardeenvio:{
-                lat: String,
-                long: String
-            },
-            pagototal: Number
+            lugardeenvio: String,
+            pagototal: Number,
+            item:[{
+                idmenu : String,
+                cantidad : Number,
+            }],
         });
         this.mymodel = mongoose.model("orden",this.OrdenSchema);
     }
    
      //SERVICIO POST
-     createOrden(idmenu,idrestaurant,cantidad,idcliente, lugardeenvio, pagototal){
-        var orden = {
-            idmenu,
-            idrestaurant,
-            cantidad,
-            idcliente,
-            lugardeenvio,
-            pagototal
-        };
-        var newOrden = new this.mymodel(orden);
+     createOrden(body){
+        var newOrden = new this.mymodel(body);
         return new Promise((resolve,reject)=>{
             newOrden.save().then((docs)=>{
                 console.log("Orden registrado");
@@ -37,7 +28,7 @@ class ordenModel{
     }
     
     //SERVICIO GET
-    getOrden(){
+    async getOrden(){
         return new Promise((resolve,reject)=>{
             this.mymodel.find({}, (err,docs)=>{
                 if (err) {
@@ -51,9 +42,9 @@ class ordenModel{
     }
 
     //SERVICIO UPDATE
-    updateModel(id, ordenUpdate){
+    async updateOrden(id, data){
         return new Promise((resolve,reject)=>{
-            this.mymodel.update({ _id:id},{$set: ordenUpdate},(err,docs) => {
+            this.mymodel.update({ _id:id},{$set: data},(err,docs) => {
                 if(err){
                     console.log(err);
                     resolve(err);
@@ -65,9 +56,9 @@ class ordenModel{
     }
     
     //SERVICIO DELETE
-    deleteOrden(id) {
+    async deleteOrden(id) {
         return new Promise((resolve, reject) => {
-            this.mymodel.remove({ _id: id }).then((err, docs) => {
+            this.mymodel.remove({ _id: id }).then((err,docs) => {
                 if (err) {
                     console.log(err);
                     resolve(err);

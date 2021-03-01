@@ -1,3 +1,4 @@
+
 import mongoose from "../connection/connect.js";
 import modelenum from "../utils/enumModel.js";
 
@@ -5,14 +6,21 @@ class menuModel{
     constructor(){
         this.Schema = mongoose.Schema;
         this.MenuSchema = new this.Schema({
-            name: {
-                type : String
-            },
+            name: String,
+
             price: {
                 type : Number,
                 min : 0,
             },
             description: String,
+            fotos:[
+                {
+                    directorypath: String,  
+                    uriAvatar: String,
+                    name:String,      
+                    default:Boolean,
+                }
+            ],
             registerDate:Date,
         });
         if (modelenum["menus"] == null) {
@@ -83,6 +91,58 @@ class menuModel{
                     resolve(docs);
                 });
         });
+    }
+
+    async uploadAvatar(id,data){
+        this.restModel = modelenum["restaurant"];
+        return new Promise((resolve,reject)=>{
+            this.restModel.update(
+                {},
+                {$push:{"menu.$[i].fotos":data}},
+                {arrayFilters:[
+                    {"i._id":id}
+                ]}).then((err,docs)=>{
+                    if(err){
+                        console.log(err);
+                        resolve(err);
+                        return;
+                    }
+                    resolve(docs);
+                });
+        });
+    }
+
+    async findAvatar(name){
+        this.restModel = modelenum["restaurant"];
+        var avatarImage = await this.restModel.aggregate([
+            {
+                "$match": {
+                    "menu.fotos.name":name
+                    
+                }
+                
+            },
+            {
+                "$unwind":"$menu"
+                
+            },
+            {
+                "$unwind":"$menu.fotos"
+                
+            },
+            {
+                "$match":{
+                    "menu.fotos.name":name
+                }
+            },{
+                "$project":{
+                    "menu.fotos":1
+                }
+            }])
+        console.log(typeof(avatarImage));
+        var resultado = avatarImage[0].menu.fotos.directorypath;
+        
+        return resultado;
     }
 }
 export default menuModel;

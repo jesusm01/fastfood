@@ -57,6 +57,14 @@ class restModel{
                  },
             },
             menu:[menuModel.MenuSchema],
+            fotos:[
+                {
+                    directorypath: String,  //ruta para HHTP
+                    uriAvatar: String,
+                    name:String,      // ruta para nuestro servidor
+                    default:Boolean
+                }
+            ],
             date_register: Date,
         });
         if (modelenum["restaurant"] == null) {
@@ -127,6 +135,34 @@ class restModel{
           });
         });
       }
+    
+
+    async updateAvatar(id,data){
+        var result = await this.mymodel.update(
+            {_id:id},
+            {$push:{fotos:data}});
+        return result;
+    }
+
+    async findAvatar(name){
+        /*var avatarImages = await this.mymodel.find({"fotos.name":name});
+        if (avatarImages != null && avatarImages.length > 0){
+            var avatarImage = avatarImages[0];
+            var resultdata = avatarImage.fotos.filter((item)=>{
+                if(item.name == name) {
+                    return true;
+                }
+                return false;
+            });
+            return resultdata;
+        }
+        return {};*/
+
+        var avatarImage = await this.mymodel.find({"fotos.name":name},{"fotos.$":1});
+        console.log(typeof(avatarImage));
+        var resultado = avatarImage[0].fotos[0].directorypath;
+        return resultado;
+    }
 
     getModel(){
         return this.mymodel
