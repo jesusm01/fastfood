@@ -21,11 +21,14 @@ var ordenController = new OrdenController();
  * // Servicios de los usuarios
  */
 router.get("/", indexControler.index);
+router.post("/login",indexControler.login);
+
 router.get("/user", userController.getUsers);
 router.post("/user", userController.createUser);
 router.put("/user/:id", userController.updateUser);
 router.delete("/user/:id", userController.deleteUser);
 router.post("/addRol", userController.addRol);
+
 /* GET home page. */
 /**
  * Endpoints de los usuarios
